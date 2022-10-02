@@ -12,7 +12,7 @@ Currently only Linux is supported due to a hard dependency on libinput. I will t
 
 ## Video Guide
 
-comming soon
+[![first guide](https://img.youtube.com/vi/uFst1Hm4P9k/0.jpg)](https://www.youtube.com/watch?v=uFst1Hm4P9k)
 
 ## Customising
 
