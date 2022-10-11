@@ -1,7 +1,7 @@
-
 pub mod programmable_keys {
 
     // https://docs.qmk.fm/#/feature_programmable_button
+    #[cfg(target_os = "linux")]
     #[derive(Debug)]
     pub enum ProgrammableKeys {
         MACROUNKOWN = 0,
@@ -39,7 +39,46 @@ pub mod programmable_keys {
         MACRO32 = 687
     }
 
+    #[cfg(target_os = "windows")]
+    #[derive(Debug)]
+    pub enum ProgrammableKeys {
+        MACROUNKOWN = 0,
+        MACRO1 = 261,
+        MACRO2 = 517,
+        MACRO3 = 1029,
+        MACRO4 = 2053,
+        MACRO5 = 4101,
+        MACRO6 = 8197,
+        MACRO7 = 16389,
+        MACRO8 = 32773,
+        MACRO9 = 65541,
+        MACRO10 = 131077,
+        MACRO11 = 262149,
+        MACRO12 = 200,
+        MACRO13 = 201,
+        MACRO14 = 202,
+        MACRO15 = 203,
+        MACRO16 = 204,
+        MACRO17 = 205,
+        MACRO18 = 206,
+        MACRO19 = 207,
+        MACRO20 = 134217733,
+        MACRO21 = 208,
+        MACRO22 = 209,
+        MACRO23 = 210,
+        MACRO24 = 211,
+        MACRO25 = 212,
+        MACRO26 = 213,
+        MACRO27 = 214,
+        MACRO28 = 215,
+        MACRO29 = 216,
+        MACRO30 = 217,
+        MACRO31 = 218,
+        MACRO32 = 219
+    }
+
     impl ProgrammableKeys {
+        #[cfg(target_os = "linux")]
         pub fn from_u32(value: u32) -> ProgrammableKeys {
             match value {
                 656 => ProgrammableKeys::MACRO1,
@@ -74,6 +113,48 @@ pub mod programmable_keys {
                 685 => ProgrammableKeys::MACRO30,
                 686 => ProgrammableKeys::MACRO31,
                 687 => ProgrammableKeys::MACRO32,
+                _ => {
+                    println!("Unknown programmable key {}", value);
+                    ProgrammableKeys::MACROUNKOWN
+                },
+            }
+        }
+
+        #[cfg(target_os = "windows")]
+        pub fn from_u32(value: u32) -> ProgrammableKeys {
+            match value {
+                261 => ProgrammableKeys::MACRO1,
+                517 => ProgrammableKeys::MACRO2,
+                1029 => ProgrammableKeys::MACRO3,
+                2053 => ProgrammableKeys::MACRO4,
+                4101 => ProgrammableKeys::MACRO5,
+                8197 => ProgrammableKeys::MACRO6,
+                16389 => ProgrammableKeys::MACRO7,
+                32773 => ProgrammableKeys::MACRO8,
+                65541 => ProgrammableKeys::MACRO9,
+                131077 => ProgrammableKeys::MACRO10,
+                262149 => ProgrammableKeys::MACRO11,
+                200 => ProgrammableKeys::MACRO12,
+                201 => ProgrammableKeys::MACRO13,
+                202 => ProgrammableKeys::MACRO14,
+                203 => ProgrammableKeys::MACRO15,
+                204 => ProgrammableKeys::MACRO16,
+                205 => ProgrammableKeys::MACRO17,
+                206 => ProgrammableKeys::MACRO18,
+                207 => ProgrammableKeys::MACRO19,
+                134217733 => ProgrammableKeys::MACRO20,
+                208 => ProgrammableKeys::MACRO21,
+                209 => ProgrammableKeys::MACRO22,
+                210 => ProgrammableKeys::MACRO23,
+                211 => ProgrammableKeys::MACRO24,
+                212 => ProgrammableKeys::MACRO25,
+                213 => ProgrammableKeys::MACRO26,
+                214 => ProgrammableKeys::MACRO27,
+                215 => ProgrammableKeys::MACRO28,
+                216 => ProgrammableKeys::MACRO29,
+                217 => ProgrammableKeys::MACRO30,
+                218 => ProgrammableKeys::MACRO31,
+                219 => ProgrammableKeys::MACRO32,
                 _ => {
                     println!("Unknown programmable key {}", value);
                     ProgrammableKeys::MACROUNKOWN

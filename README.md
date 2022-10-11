@@ -8,11 +8,12 @@ The reason this feature is very good in my opinion is because these keys will no
 
 This project was written in rust, I'm still learning rust so the code is not the best, this would be my first proper rust project. I'm open to any suggestions on how to improve the code, and make it more efficient.
 
-Currently only Linux is supported due to a hard dependency on libinput. I will try to add support for windows in the future. Mostly I think I will just need to find an alternative to libinput, which shouldn't be too bad, the other libraries used in this project are cross platform I believe.
+Currently Linux and Windows is supported. Linux support is better, I still need to improve windows version more but it is fully functional, just might be a bit more difficult to setup as the Linux one works right out of the box.
 
 ## Video Guide
 
-comming soon
+[![first guide](https://img.youtube.com/vi/uFst1Hm4P9k/0.jpg)](https://www.youtube.com/watch?v=uFst1Hm4P9k)
+[![windows guide](https://img.youtube.com/vi/0pucPQXm3IE/0.jpg)](https://www.youtube.com/watch?v=0pucPQXm3IE)
 
 ## Customising
 
@@ -26,3 +27,37 @@ Once you have cargo and rustc installed, you can build the project by running `c
 
 To reduce the binary size further you can use upx.
 `upx --best --lzma target/release/qmk_programmable_button`
+
+## Running on Windows
+
+Windows is supported but still needs some work. The program will auto compile on windows but it might not detect the keypresses until you hardcode the correct device ID.
+
+### Configuring it for windows
+
+1. Download [hidapitester](https://github.com/todbot/hidapitester) and run it with `.\hidapitester.exe --list-detail`. You should your keyboard listed more than once.
+
+```cmd
+FEED/6060: ArtiomSu - macropad_artiomsu
+  vendorId:      0xFEED
+  productId:     0x6060
+  usagePage:     0x0001
+  usage:         0x0006
+  serial_number: (null)
+  interface:     0
+  path: long random string
+
+FEED/6060: ArtiomSu - macropad_artiomsu
+  vendorId:      0xFEED
+  productId:     0x6060
+  usagePage:     0x000C
+  usage:         0x0001
+  serial_number: (null)
+  interface:     1
+  path: long random string
+```
+
+2. Pay attention to the usagePage and usage. The usagePage with 0x001 and usage 0x006 can be ignore as this is simply the keyboard. The usagePage with 0x00C and usage 0x001 is the programmable button. Take a note of that if it is different to what I have as you will need to change it.
+
+3. If its different then go into `src/window_listner.rs` to go the `attach` function at the end of the page and update the `usagePage` and `usage` variables to match your keyboard.
+
+4. I only mapped the macro keys I'm using for windows so you will need to add the rest in `programmable_key.rs` if you want to use them. I will add them in the future once I figure out a better way to handle windows.
